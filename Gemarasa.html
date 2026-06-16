@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gemarasa — Mendengar Lebih Dalam, Merasakan Lebih Jauh</title>
+    <!-- Google Fonts for Editorial Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS RESET & VARIABLES */
+        :root {
+            --bg-color: #1E1E1E; /* Muted Dark Charcoal */
+            --text-color: #E5E0D8; /* Soft Pastel Ivory */
+            --text-muted: #A09A90; /* Muted Gray-Brown */
+            --accent-pastel: #dca687; /* Warm Terracotta Pastel */
+            --card-bg: #2A2925; /* Soft Dark Pastel Cocoa */
+            --block-bg: #33312D; /* Idle Block Background */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(229, 224, 216, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        /* BRANDING: COMBINED LOGO & TEXT */
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-text {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-color);
+            line-height: 1;
+        }
+
+        .brand-text span {
+            color: var(--accent-pastel);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        nav ul li a:hover {
+            color: var(--text-color);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 em {
+            color: var(--accent-pastel);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--text-color);
+            width: 80px;
+            margin: 0 auto;
+            opacity: 0.15;
+        }
+
+        /* INTERACTIVE SONG WIDGET */
+        .anatomy-widget {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(229, 224, 216, 0.05);
+        }
+
+        .widget-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .widget-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .song-timeline {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-block {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--block-bg);
+            border: 1px solid rgba(229, 224, 216, 0.05);
+            color: var(--text-muted);
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .timeline-block.active, .timeline-block:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+        }
+
+        .analysis-display {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-pastel);
+            min-height: 150px;
+        }
+
+        .analysis-display h4 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .analysis-display p {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* EDITORIAL GRID */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-pastel);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .featured-story {
+            margin-bottom: 50px;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            background-image: linear-gradient(135deg, #121212 0%, #2c2a29 100%);
+            border: 1px solid rgba(229, 224, 216, 0.05);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            color: var(--text-color);
+        }
+
+        .featured-img h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .featured-story p {
+            color: var(--text-muted);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .story-card {
+            border-bottom: 1px solid rgba(229, 224, 216, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .story-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .story-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* SIDEBAR */
+        sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .sidebar-box {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(229, 224, 216, 0.03);
+        }
+
+        .sidebar-box h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .playlist-num {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--accent-pastel);
+            font-weight: bold;
+        }
+
+        /* NEWSLETTER FORM */
+        .newsletter-form input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(229, 224, 216, 0.15);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+            border-radius: 4px;
+        }
+
+        .newsletter-form input[type="email"]::placeholder {
+            color: rgba(229, 224, 216, 0.4);
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            border-radius: 4px;
+        }
+
+        .newsletter-form button:hover {
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(229, 224, 216, 0.1);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .song-timeline {
+                flex-direction: column;
+            }
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGASI -->
+    <header>
+        <div class="nav-container">
+            <!-- BRANDING: SIMBOL PERASAAN + TULISAN GEMARASA -->
+            <a href="#" class="brand-link">
+                <!-- Simbol Perasaan dalam Deretan Gema -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="38" height="38" style="flex-shrink: 0;">
+                    <g transform="translate(80, 80)">
+                        <circle r="60" fill="none" stroke="#E5E0D8" stroke-width="1.5" stroke-dasharray="2 8" opacity="0.2"/>
+                        <path d="M 0,-45 A 45,45 0 1,1 -0.1,-45" fill="none" stroke="#E5E0D8" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.35"/>
+                        <path d="M 0,-30 A 30,30 0 1,1 -0.1,-30" fill="none" stroke="#DCA687" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
+                        <path d="M 0,-18 A 18,18 0 1,1 -0.1,-18" fill="none" stroke="#DCA687" stroke-width="2.5" opacity="0.8"/>
+                        <path d="M0,-8 C4,-14 12,-6 0,6 C-12,-6 -4,-14 0,-8 Z" fill="#DCA687" stroke="#DCA687" stroke-width="1.5" stroke-linejoin="round"/>
+                        <circle cx="0" cy="-1" r="1.5" fill="#E5E0D8"/>
+                    </g>
+                </svg>
+                <!-- Tulisan Nama Media -->
+                <div class="brand-text">gema<span>rasa</span></div>
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="#">Tentang Nada</a></li>
+                    <li><a href="#">Sandi Lirik</a></li>
+                    <li><a href="#">Balik Panggung</a></li>
+                    <li><a href="#">Tentang</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="section-label">jurnal musik</span>
+        <h1>Mendengar Lebih <em>Dalam</em>,<br>Merasakan Lebih <em>Jauh</em>.</h1>
+        <p>Kami membedah struktur lagu, anatomi aransemen, dan mengupas tuntas esensi pesan emosional tersembunyi yang ingin disampaikan musisi favorit Anda.</p>
+        <div class="divider"></div>
+    </section>
+
+    <!-- WIDGET RUANG INTERAKTIF -->
+    <section class="anatomy-widget">
+        <div class="widget-title">Ruang Interaktif: "Rehat" — Kunto Aji</div>
+        <div class="widget-subtitle">Klik setiap bagian struktur lagu untuk membedah dinamika pesannya</div>
+        
+        <div class="song-timeline">
+            <div class="timeline-block active" onclick="showAnalysis('intro')">Intro</div>
+            <div class="timeline-block" onclick="showAnalysis('verse')">Verse</div>
+            <div class="timeline-block" onclick="showAnalysis('chorus')">Chorus</div>
+            <div class="timeline-block" onclick="showAnalysis('bridge')">Bridge</div>
+            <div class="timeline-block" onclick="showAnalysis('outro')">Outro</div>
+        </div>
+
+        <div class="analysis-display" id="analysis-box">
+            <h4 id="analysis-title">Bagian: Intro (0:00 - 0:28)</h4>
+            <p id="analysis-text">Lagu dibuka dengan aransemen ambient-elektronik minimalis berfrekuensi rendah. Suara synthesizer bergelombang halus ini sengaja dirancang untuk meniru gelombang otak Alpha, mengondisikan pendengar agar masuk ke dalam situasi rileks, melepas ketegangan sebelum pesan utama disampaikan.</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+        
+        <!-- KONTEN UTAMA (KIRI) -->
+        <div class="left-content">
+            <span class="section-label">Sorotan Utama</span>
+            <div class="featured-story">
+                <div class="featured-img">
+                    <h2>Membedah Luka dan Katarsis: Anatomi Struktur Tragis dalam Lagu "Satu-Satu" oleh Idgitaf</h2>
+                </div>
+                <p>Bagaimana perpindahan progresi akor yang awalnya melankolis secara perlahan naik menuju tangga nada mayor yang cerah di bagian akhir lagu menggambarkan proses penerimaan trauma masa lalu secara psikologis...</p>
+            </div>
+
+            <span class="section-label">Ulasan Terbaru</span>
+            <div class="story-grid">
+                <div class="story-card">
+                    <h3>Sandi Lirik: Menafsir Metafora Hujan dalam Karya-Karya Efek Rumah Kaca</h3>
+                    <p>Hujan di tangan ERK tidak pernah sekadar fenomena alam. Kami mengupas lapisan sosiopolitik di balik lirik sinis mereka.</p>
+                    <a href="#" style="font-weight: 600; font-size: 0.85rem; color: var(--accent-pastel);">Baca Analisis →</a>
+                </div>
+                <div class="story-card">
+                    <h3>Dapur Rekaman: Mengapa Struktur 'Bridge' di Lagu Hindia Selalu Menjadi Klimaks Emosi</h3>
+                    <p>Wawancara eksklusif bersama produser musik mengenai teknik penumpukan instrumen (layering) demi menciptakan efek sesak batin.</p>
+                    <a href="#" style="font-weight: 600; font-size: 0.85rem; color: var(--accent-pastel);">Baca Analisis →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR (KANAN) -->
+        <sidebar>
+            <div class="sidebar-box">
+                <h3>Alunan Rasa Mingguan</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Kurasi lagu bertema: <em>Penerimaan Diri</em></p>
+                
+                <div class="playlist-item">
+                    <span class="playlist-num">01</span>
+                    <div><strong>Rehat</strong><br><span style="color: var(--text-muted); font-size:0.8rem">Kunto Aji</span></div>
+                </div>
+                <div class="playlist-item">
+                    <span class="playlist-num">02</span>
+                    <div><strong>Secukupnya</strong><br><span style="color: var(--text-muted); font-size:0.8rem">Hindia</span></div>
+                </div>
+                <div class="playlist-item">
+                    <span class="playlist-num">03</span>
+                    <div><strong>Satu-Satu</strong><br><span style="color: var(--text-muted); font-size:0.8rem">Idgitaf</span></div>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <h3>Langganan Gema-Surat</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Dapatkan esai bedah lagu eksklusif langsung di email Anda setiap Jumat pagi.</p>
+                <form class="newsletter-form" onsubmit="alert('Terima kasih telah bergabung dengan komunitas gemarasa!'); return false;">
+                    <input type="email" placeholder="Alamat email Anda..." required>
+                    <button type="submit">Gabung Komunitas</button>
+                </form>
+            </div>
+        </sidebar>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 gemarasa. Media Manajemen Persiapan Proyek Pendirian Media.</p>
+        <p style="font-size: 0.75rem; margin-top: 5px; color: #666;">Mendengar Lebih Dalam, Merasakan Lebih Jauh.</p>
+    </footer>
+
+    <!-- JAVASCRIPT UNTUK INTERAKTIF -->
+    <script>
+        const data = {
+            intro: {
+                title: "Bagian: Intro (0:00 - 0:28)",
+                text: "Lagu dibuka dengan aransemen ambient-elektronik minimalis berfrekuensi rendah. Suara synthesizer bergelombang halus ini sengaja dirancang untuk meniru gelombang otak Alpha, mengondisikan pendengar agar masuk ke dalam situasi rileks, melepas ketegangan sebelum pesan utama disampaikan."
+            },
+            verse: {
+                title: "Bagian: Verse / Bait (0:28 - 1:20)",
+                text: "Lirik mulai masuk dengan intonasi vokal yang tenang, seperti berbisik pada diri sendiri. Ketukan drum belum muncul, hanya ada petikan gitar tipis. Struktur ini melambangkan situasi seseorang yang sedang merenung di tengah kesepian malam, mengakui kelelahan mental yang sedang dipikul."
+            },
+            chorus: {
+                title: "Bagian: Chorus / Inti Pesan (1:20 - 2:10)",
+                text: "Di sinilah esensi rasa meledak secara subtil. Nada vokal meninggi secara manis diiringi lirik 'Biar lah dulu, responsmu batasi'. Musik bertransisi menjadi pelukan hangat melalui aransemen brass section (terompet) tipis yang melambangkan bahwa tidak apa-apa untuk berhenti sejenak."
+            },
+            bridge: {
+                title: "Bagian: Bridge / Titik Balik (2:10 - 2:55)",
+                text: "Musik melambat, menyisakan vokal latar berupa gumaman mantra penenang. Secara struktural, bridge ini berfungsi sebagai jembatan kontemplasi spiritual. Dinamika aransemen dibersihkan kembali untuk memberi ruang bagi pembaca/pendengar menarik napas dalam-dalam."
+            },
+            outro: {
+                title: "Bagian: Outro / Katarsis Akhir (2:55 - Selesai)",
+                text: "Lagu ditutup dengan pengulangan kalimat 'Yang kau takutkan takkan terjadi'. Musik melarut (*fade out*) perlahan bersamaan dengan suara natural alam. Ini menyimbolkan bahwa badai pikiran telah mereda, dan pendengar siap kembali melangkah dengan jiwa yang lebih lapang."
+            }
+        };
+
+        function showAnalysis(section) {
+            document.getElementById('analysis-title').innerText = data[section].title;
+            document.getElementById('analysis-text').innerText = data[section].text;
+
+            const blocks = document.querySelectorAll('.timeline-block');
+            blocks.forEach(block => block.classList.remove('active'));
+            
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
